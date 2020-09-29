@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 import fire from "../firebase";
 
@@ -44,8 +44,8 @@ class Login extends Component {
                         <input type="password" name="password" onChange={this.handleChange} placeholder="Password"/>
                     </div>
                     <button className="ui button" type="submit">Sign In</button>
-                    <div>Don't have an account? <Link to="/singup">Sign Up</Link></div>
-                    <div><Link to="/resetpassword">Forgot your password?</Link></div>
+                    <div>Don't have an account? <Link to="/signup">Sign Up</Link></div>
+                    <div><Link to="/forgotpassword">Forgot your password?</Link></div>
                 </form>
             </div>
         );

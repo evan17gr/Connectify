@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import {Link,Redirect} from "react-router-dom";
 
 import fire from "../firebase";
 
-class SignUp extends Component {
+class Register extends Component {
     constructor(props){
         super(props);
 
@@ -43,10 +44,11 @@ class SignUp extends Component {
                     </div>
                     <button className="ui button" type="submit" onClick={this.makeAccount}>Sign Up</button>
                     <button style={{backgroundColor : "red", color:"white"}} className="ui button" type="submit">Sign Up with Google</button>
+                    <div>Already have an account? <Link to="/login">Sign In</Link></div>
                 </form>
             </div>
         )
     }
 }
 
-export default SignUp;
+export default Register;
