@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Link, Redirect} from "react-router-dom";
+import {Route,Link, Redirect} from "react-router-dom";
 
-import fire from "../firebase";
+import {fire,firebaseAuth} from "../firebase";
 
 class Login extends Component {
     constructor(props){
@@ -22,12 +22,20 @@ class Login extends Component {
 
     loginUser(e){
         e.preventDefault();
-        fire.auth().signInWithEmailAndPassword(this.state.email,this.state.password).then( (user) => {}).catch((error) =>{
+        fire.auth().signInWithEmailAndPassword(this.state.email,this.state.password).then((user) => {
+            console.log(user);
+            return (
+                <Route exact path="/login">
+                    {user != null ? <Redirect to="/"></Redirect> : <Login/>}
+                </Route>
+            );
+        }).catch((error) =>{
             console.log(error);
         })
     }
     
     render(){
+    
         return (
             <div>
                  <form className="ui form">
@@ -43,7 +51,7 @@ class Login extends Component {
                         <label>Password</label>
                         <input type="password" name="password" onChange={this.handleChange} placeholder="Password"/>
                     </div>
-                    <button className="ui button" type="submit">Sign In</button>
+                    <button className="ui button" type="submit" onClick={this.loginUser}>Sign In</button>
                     <div>Don't have an account? <Link to="/signup">Sign Up</Link></div>
                     <div><Link to="/forgotpassword">Forgot your password?</Link></div>
                 </form>

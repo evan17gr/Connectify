@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Feed  from "./pages/Feed";
 import Profile from "./pages/Profile";
-import fire from "./firebase";
+import {fire} from "./firebase";
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
@@ -18,13 +18,19 @@ class App extends Component {
         this.authListener = this.authListener.bind(this);
 
         this.state = {
-            user : {}
+            user : {},
         };
     }
 
     componentDidMount(){
         this.authListener();
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.user !== prevState.user) {
+            this.setState({user: this.state.user});
+        }
+      }
 
     authListener(){
         fire.auth().onAuthStateChanged( (user) => {
@@ -34,7 +40,7 @@ class App extends Component {
             else{
                 this.setState({user:null});
             }
-        })
+        });
     }
    
 
@@ -47,7 +53,7 @@ class App extends Component {
                     <Route path="/resetpassword" component={ResetPassword}/>
                     <Route path="/forgotpassword" component={ForgotPassword}/>
                     <PrivateRoute exact path="/profile" component={Profile}/>
-                    <PrivateRoute exact path="/feed" component={Feed}/>
+                    <PrivateRoute exact path="/" component={Feed}/>
                     <Route exact path="*" component={Error}/>
                </Switch>
             </div>

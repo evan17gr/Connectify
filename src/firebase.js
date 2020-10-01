@@ -2,19 +2,19 @@ import firebase from "firebase/app";
 import "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTHDOMAIN,
-  databaseURL: process.env.REACT_APP_BASEURL,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID,
-  measurementId: process.env.REACT_APP_MEASUREMENT_ID
+  apiKey: "AIzaSyBSAlbrfhBK_7ngA8YkaVIQ23DBQ25uXKo",
+  authDomain: "connectify-413fb.firebaseapp.com",
+  databaseURL: "https://connectify-413fb.firebaseio.com",
+  projectId: "connectify-413fb",
+  storageBucket: "connectify-413fb.appspot.com",
+  messagingSenderId: "501064346594",
+  appId: "1:501064346594:web:e24bd0f0a0708ef89167bb",
+  measurementId: "G-7QPMCV8LM9"
 };
 
 // Initialize Firebase
-const fire= firebase.initializeApp(firebaseConfig);
-const firebaseAuth = firebase.auth();
+export const fire= firebase.initializeApp(firebaseConfig);
 
-export default fire;
+
+
 

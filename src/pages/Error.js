@@ -5,7 +5,7 @@ const Error = () => {
     return(
         <div>
             <h1>Oops! Page not found!</h1>
-            <div>Don't have an account? <Link to="/login">Sign Up</Link></div>
+            <div>Don't have an account? <Link to="/login">Sign In</Link></div>
         </div>
     );
 }
