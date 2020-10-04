@@ -18,19 +18,14 @@ class App extends Component {
         this.authListener = this.authListener.bind(this);
 
         this.state = {
-            user : {},
+            user : null,
+            userLoggedOut:false
         };
     }
 
     componentDidMount(){
         this.authListener();
     }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.user !== prevState.user) {
-            this.setState({user: this.state.user});
-        }
-      }
 
     authListener(){
         fire.auth().onAuthStateChanged( (user) => {
@@ -42,23 +37,27 @@ class App extends Component {
             }
         });
     }
-   
+
+    sendDataToLogin(userData){
+        this.setState({userLoggedOut:userData});
+        console.log(this.state.userLoggedOut);
+    }
 
     render(){ 
         return (
             <div>
-               <Switch>
-                    <Route path="/login" component={Login}/>
+                <Switch>
+                    <Route path="/login" component={Login} userHasLoggedOut={this.state.userLoggedOut}/>
                     <Route path="/signup" component={Register}/>
                     <Route path="/resetpassword" component={ResetPassword}/>
                     <Route path="/forgotpassword" component={ForgotPassword}/>
-                    <PrivateRoute exact path="/profile" component={Profile}/>
-                    <PrivateRoute exact path="/" component={Feed}/>
+                    <Route path="/profile" component={Profile}/>
+                    <PrivateRoute exact path="/profile" component={Profile} user={this.state.user}/>
+                    <PrivateRoute exact path="/" component={Feed} getDataFromFeed={this.sendDataToLogin} user={this.state.user}/>
                     <Route exact path="*" component={Error}/>
-               </Switch>
+                </Switch>
             </div>
-            
-    );
+        );
     }
 }
 

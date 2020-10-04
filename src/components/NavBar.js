@@ -9,27 +9,37 @@ class NavBar extends Component {
 
         this.signOut = this.signOut.bind(this);
 
+        this.state = {userLoggedOut:false};
+
+    }
+
+    signOut (){
+        fire.auth().signOut().then( (user) => {
+            this.setState({userLoggedOut:true});
+            console.log("sign out");
+            console.log(this.state.user);
+        }
+        );
+
+        this.props.getDataFromNavBar(this.state.userLoggedOut);
     }
     
-    signOut (){
-        fire.auth().signOut();
-    }
 
     render(){
         return(
-            <div class="ui secondary  menu">
-                <img class="ui top aligned tiny image" src="https://st2.depositphotos.com/4827821/7207/v/450/depositphotos_72076771-stock-illustration-letter-c-logo-template.jpg"/>
-                <div class="right menu">
-                    <div class="item">
-                    <div class="ui icon input">
+            <div className="ui secondary  menu">
+                <img className="ui top aligned tiny image" src="https://st2.depositphotos.com/4827821/7207/v/450/depositphotos_72076771-stock-illustration-letter-c-logo-template.jpg"/>
+                <div className="right menu">
+                    <div className="item">
+                    <div className="ui icon input">
                         <input type="text" placeholder="Search..."/>
-                        <i class="search link icon"></i>
+                        <i className="search link icon"></i>
                     </div>
                     </div>
-                    <a class="ui item">
+                    <a className="ui item">
                     Profile
                     </a>
-                    <a class="ui item" onClick={this.signOut}>
+                    <a className="ui item" onClick={this.signOut}>
                     Logout
                     </a>
                 </div>

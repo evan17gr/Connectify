@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route,Link, Redirect} from "react-router-dom";
+import {Route,Link, Redirect,withRouter} from "react-router-dom";
 
 import {fire,firebaseAuth} from "../firebase";
 
@@ -12,33 +12,36 @@ class Login extends Component {
 
         this.state = {
             email:"",
-            password: ""
+            password: "",
+            userLoggedIn:false
         };
     }
 
     handleChange(e){
         this.setState({ [e.target.name] : e.target.value});
+        console.log({ [e.target.name]: e.target.value });
     }
 
     loginUser(e){
         e.preventDefault();
         fire.auth().signInWithEmailAndPassword(this.state.email,this.state.password).then((user) => {
+            this.setState({userLoggedIn:true});
             console.log(user);
-            return (
-                <Route exact path="/login">
-                    {user != null ? <Redirect to="/"></Redirect> : <Login/>}
-                </Route>
-            );
         }).catch((error) =>{
             console.log(error);
         })
     }
-    
+
     render(){
-    
+
+        if(this.props.userHasLoggedOut){
+            return <Redirect to="/"></Redirect>
+        }
+
         return (
+
             <div>
-                 <form className="ui form">
+                 <form onSubmit={this.loginUser} className="ui form">
                     <button style={{backgroundColor : "red", color:"white"}} className="ui button" type="submit">Continue with Google</button>
                     <br></br>
                     <div>Or</div>
@@ -51,7 +54,7 @@ class Login extends Component {
                         <label>Password</label>
                         <input type="password" name="password" onChange={this.handleChange} placeholder="Password"/>
                     </div>
-                    <button className="ui button" type="submit" onClick={this.loginUser}>Sign In</button>
+                    <button className="ui button" type="submit">Sign In</button>
                     <div>Don't have an account? <Link to="/signup">Sign Up</Link></div>
                     <div><Link to="/forgotpassword">Forgot your password?</Link></div>
                 </form>

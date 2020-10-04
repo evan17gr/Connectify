@@ -4,12 +4,12 @@ import {Link} from "react-router-dom";
 
 const ForgotPassword = () => {
     return(
-        <div class="ui form">
-            <div class="field">
+        <div className="ui form">
+            <div className="field">
                 <label>E-mail</label>
                 <input type="email" placeholder="joe@schmoe.com"/>
             </div>
-            <div class="ui submit button">Reset Password</div>
+            <div className="ui submit button">Reset Password</div>
             <div>Already have an account? <Link to="/login">Sign In</Link></div> 
         </div>
         
